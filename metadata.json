@@ -1,0 +1,6 @@
+{
+  "name": "Lomé Perfume Express Order",
+  "description": "Page de commande mobile express pour vendeur de parfum à Lomé, Togo avec commande directe WhatsApp, Mixx by Yas, TMoney, Flooz et livraison locale.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

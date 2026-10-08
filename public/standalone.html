@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AURA Parfums — Commande Express Lomé (Togo)</title>
+  <meta name="description" content="Commandez votre parfum AURA en 1 clic à Lomé. Livraison rapide dans tous les quartiers. Paiement Mixx, Flooz, TMoney ou à la livraison.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FAF7F5;
+      --card-bg: #FFFFFF;
+      --text: #2D2424;
+      --text-muted: #7A5B60;
+      --brand: #5B2A30;
+      --brand-light: #FAF0EE;
+      --accent-gold: #C28B38;
+      --whatsapp: #25D366;
+      --whatsapp-hover: #20BD5A;
+      --border: #DFCEC8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.5; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    .container {
+      max-width: 460px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      min-height: 100vh;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      border-left: 1px solid #F0E6E2;
+      border-right: 1px solid #F0E6E2;
+      padding-bottom: 30px;
+    }
+
+    .top-bar { background: var(--brand); color: #FFF; font-size: 11px; font-weight: 600; text-align: center; padding: 8px 12px; }
+    .header { padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F5EAE7; position: sticky; top: 0; background: #FFF; z-index: 20; }
+    .logo { font-size: 24px; font-weight: 700; color: #4A1E24; }
+    
+    .hero-box { padding: 18px 20px 10px; }
+    .product-img-wrapper { position: relative; width: 100%; padding-top: 100%; border-radius: 18px; overflow: hidden; background: #FBF5F2; border: 1px solid #EEDDD7; }
+    .product-img { position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.2s; }
+    .badge-stock { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.95); padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 700; color: #065F46; }
+    .badge-promo { position: absolute; top: 12px; right: 12px; background: var(--brand); color: #FFF; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px; }
+
+    .selector-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #694A50; margin: 12px 0 6px; display: block; }
+    .variant-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .variant-btn { padding: 8px 4px; border: 1px solid #EADAD5; border-radius: 12px; background: #FFF; font-size: 11px; font-weight: 700; cursor: pointer; text-align: center; }
+    .variant-btn.active { border-color: #7A3640; background: #FAF0EE; color: #4A1E24; box-shadow: 0 0 0 1px #7A3640; }
+    .variant-sub { font-size: 9px; color: #8C6D73; display: block; margin-top: 2px; }
+
+    .size-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+    .size-btn { padding: 10px 12px; border: 1px solid #EADAD5; border-radius: 12px; background: #FFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .size-btn.active { border-color: #7A3640; background: #FAF0EE; box-shadow: 0 0 0 1px #7A3640; }
+
+    .price-banner { margin-top: 12px; background: #FAF4F2; border: 1px solid #F0DFDA; border-radius: 14px; padding: 12px 14px; display: flex; align-items: baseline; gap: 10px; }
+    .price-current { font-size: 26px; font-weight: 800; color: #5B2A30; }
+    .price-old { font-size: 14px; color: #A3888E; text-decoration: line-through; }
+
+    .pack-banner { margin: 10px 20px; padding: 12px; background: linear-gradient(135deg, #FFFBEB 0%, #FFF1F2 100%); border: 1px solid #FDE68A; border-radius: 14px; font-size: 11px; }
+
+    /* Form */
+    .form-section { padding: 10px 20px 20px; }
+    .form-group { margin-bottom: 15px; }
+    .label { display: block; font-size: 11px; text-transform: uppercase; font-weight: 700; color: #694A50; margin-bottom: 6px; }
+    .required { color: #DC2626; }
+
+    .qty-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .qty-btn { padding: 10px; border-radius: 12px; border: 1px solid #EADAD5; background: #FFF; cursor: pointer; font-weight: 700; font-size: 13px; text-align: center; }
+    .qty-btn.active { border-color: #7A3640; background: #FAF0EE; box-shadow: 0 0 0 1px #7A3640; }
+
+    input, select, textarea { width: 100%; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--border); font-size: 14px; outline: none; font-family: inherit; }
+    input:focus, select:focus, textarea:focus { border-color: #9E5562; }
+    .phone-box { display: flex; }
+    .phone-prefix { padding: 11px 12px; background: #F7EFEA; border: 1px solid var(--border); border-right: none; border-radius: 12px 0 0 12px; font-size: 13px; font-weight: 700; }
+    .phone-box input { border-radius: 0 12px 12px 0; }
+
+    .radio-card { display: flex; align-items: flex-start; gap: 10px; padding: 12px; border: 1px solid #EADAD5; border-radius: 14px; margin-bottom: 8px; cursor: pointer; }
+    .radio-card.active { border-color: #7A3640; background: #FAF0EE; box-shadow: 0 0 0 1px #7A3640; }
+
+    .pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .pay-pill { padding: 10px; border-radius: 12px; border: 1px solid #EADAD5; background: #FFF; cursor: pointer; font-size: 12px; font-weight: 700; }
+    .pay-pill.active { border-color: #7A3640; background: #FAF0EE; box-shadow: 0 0 0 1px #7A3640; }
+
+    .ussd-box { margin-top: 8px; padding: 10px 12px; background: #FAF7F5; border: 1px solid #EDE1DD; border-radius: 10px; font-size: 11px; }
+    .ussd-btn { display: inline-block; padding: 5px 10px; background: #5B2A30; color: #FFF; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 11px; margin-top: 6px; }
+
+    .summary-card { margin-top: 18px; padding: 16px; border-radius: 16px; background: #FAF1EE; border: 1px solid #E8D1CB; }
+    .total-price { font-size: 26px; font-weight: 700; color: #5B2A30; font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    .btn-whatsapp { width: 100%; padding: 16px; border-radius: 16px; background: var(--whatsapp); color: #FFF; border: none; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 16px; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.28); }
+    .error-msg { font-size: 11px; color: #DC2626; margin-top: 4px; display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">✨ Stock disponible immédiatement à Lomé · 🛵 Livraison Offerte dès 2 flacons !</div>
+    
+    <header class="header">
+      <div style="font-size:24px; font-weight:700; color:#4A1E24; font-family:'Cormorant Garamond', serif;">AURA · Lomé</div>
+      <div style="font-size:11px; color:#8C6D73; font-weight:600;">Boutique Officielle 🇹🇬</div>
+    </header>
+
+    <div class="hero-box">
+      <div class="product-img-wrapper">
+        <img id="product-img" class="product-img" src="parfum.jpg" alt="AURA Parfum">
+        <div class="badge-stock">● Stock disponible à Lomé</div>
+        <div class="badge-promo">-29% Promo</div>
+      </div>
+
+      <!-- Scent Picker -->
+      <span class="selector-label">1. Choisissez votre senteur :</span>
+      <div class="variant-grid">
+        <button type="button" class="variant-btn active" onclick="setVariant('fleur-dor')">
+          Fleur d'Or
+          <span class="variant-sub">Rose & Vanille</span>
+        </button>
+        <button type="button" class="variant-btn" onclick="setVariant('nuit-orient')">
+          Nuit d'Orient
+          <span class="variant-sub">Ambre & Oud</span>
+        </button>
+        <button type="button" class="variant-btn" onclick="setVariant('vanille-royale')">
+          Vanille Royale
+          <span class="variant-sub">Vanille Pure</span>
+        </button>
+      </div>
+
+      <!-- Size Picker -->
+      <span class="selector-label">2. Format du flacon :</span>
+      <div class="size-grid">
+        <button type="button" class="size-btn active" id="btnSize100" onclick="setSize('100ml')">
+          <div><strong>100ml</strong><div style="font-size:10px;color:#8C6D73;">Grand Flacon</div></div>
+          <strong style="color:#5B2A30;">8 500 F</strong>
+        </button>
+        <button type="button" class="size-btn" id="btnSize50" onclick="setSize('50ml')">
+          <div><strong>50ml</strong><div style="font-size:10px;color:#8C6D73;">Format Voyage</div></div>
+          <strong style="color:#5B2A30;">5 500 F</strong>
+        </button>
+      </div>
+
+      <h1 id="product-title" style="font-size:24px; margin-top:14px; color:#3B151C;">AURA Fleur d'Or</h1>
+      <p id="product-desc" style="font-size:12px; color:#5C4549; margin-top:6px; line-height:1.5;">
+        Un parfum envoûtant et raffiné composé pour la femme moderne. Des notes florales lumineuses de rose damascena et de jasmin blanc, enveloppées d'un cœur gourmand de vanille bourbon.
+      </p>
+
+      <div class="price-banner">
+        <span id="price-display" class="price-current">8 500 FCFA</span>
+        <span id="price-old" class="price-old">12 000 FCFA</span>
+      </div>
+    </div>
+
+    <!-- Volume Discounts Banner -->
+    <div class="pack-banner">
+      <strong style="color:#5B2A30; display:block; margin-bottom:4px;">🎁 Offres Spéciales Lots Lomé :</strong>
+      • <strong>2 Flacons :</strong> -1 000 FCFA + <strong>Livraison OFFERTE à Lomé</strong><br>
+      • <strong>3 Flacons :</strong> -2 500 FCFA + <strong>Livraison Offerte + Mini-spray offert</strong>
+    </div>
+
+    <!-- Form -->
+    <form id="orderForm" class="form-section">
+      <div class="form-group">
+        <label class="label">Quantité</label>
+        <div class="qty-grid">
+          <button type="button" class="qty-btn active" onclick="setQty(1)">1 flacon</button>
+          <button type="button" class="qty-btn" onclick="setQty(2)">2 flacons (-1 000F)</button>
+          <button type="button" class="qty-btn" onclick="setQty(3)">3 flacons (-2 500F)</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="label">Nom & Prénoms <span class="required">*</span></label>
+        <input type="text" id="custName" placeholder="Ex: Mawuena Lawson" required>
+        <div id="errName" class="error-msg">Veuillez indiquer votre nom.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="label">Téléphone (Togo) <span class="required">*</span></label>
+        <div class="phone-box">
+          <span class="phone-prefix">🇹🇬 +228</span>
+          <input type="tel" id="custPhone" placeholder="Ex: 90 12 34 56" required>
+        </div>
+        <div id="errPhone" class="error-msg">Numéro incomplet (minimum 8 chiffres).</div>
+      </div>
+
+      <div class="form-group">
+        <label class="label">Quartier à Lomé <span class="required">*</span></label>
+        <select id="custQuartier" onchange="toggleCustomQuartier()">
+          <option>Adidogomé</option><option>Agoè-Nyivé</option><option>Bè / Bè-Kpota</option><option>Hedzranawoe</option>
+          <option>Tokoin</option><option>Kodjoviakopé</option><option>Klikamé</option><option>Totsi</option><option>Nukafu</option>
+          <option>Kégué</option><option>Baguida</option><option>Avépozo</option><option>Légbassito</option><option>Autre</option>
+        </select>
+        <input type="text" id="custLandmark" placeholder="Repère précis (Pharmacie, carrefour...)" style="margin-top:8px;">
+      </div>
+
+      <div class="form-group">
+        <label class="label">Mode de Livraison</label>
+        <div class="radio-card active" id="cardHome" onclick="setDeliv('home')">
+          <input type="radio" checked name="d">
+          <div style="width:100%;">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13px;">
+              <span>🛵 Livraison à domicile Lomé</span>
+              <span id="delivFeeLabel">+1 500 FCFA</span>
+            </div>
+            <div style="font-size:11px; color:#7F6167;">En moins de 3h</div>
+          </div>
+        </div>
+        <div class="radio-card" id="cardPickup" onclick="setDeliv('pickup')">
+          <input type="radio" name="d">
+          <div style="width:100%;">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13px;">
+              <span>🏪 Retrait gratuit en boutique</span>
+              <span style="color:#065F46; font-size:11px;">0 FCFA</span>
+            </div>
+            <div style="font-size:11px; color:#7F6167;">Carrefour GTA / Tokoin</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="label">Mode de Paiement</label>
+        <div class="pay-grid">
+          <div class="pay-pill active" id="pCOD" onclick="setPay('cod')">💵 À la livraison</div>
+          <div class="pay-pill" id="pMixx" onclick="setPay('mixx')">💛 Mixx by Yas</div>
+          <div class="pay-pill" id="pTM" onclick="setPay('tmoney')">🧡 TMoney (*145#)</div>
+          <div class="pay-pill" id="pFL" onclick="setPay('flooz')">💙 Flooz (*155#)</div>
+        </div>
+
+        <div class="ussd-box" id="ussdBox">
+          💡 Vous inspectez votre flacon et réglez directement au coursier à la réception à Lomé.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="label">Notes particulières (Optionnel)</label>
+        <textarea id="notes" rows="2" placeholder="Instructions particulières..."></textarea>
+      </div>
+
+      <div class="summary-card">
+        <div style="display:flex; justify-content:space-between; border-bottom:1px solid #E3C6BF; padding-bottom:8px; font-weight:700;">
+          <span>Récapitulatif</span><span>Devise : FCFA</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin:8px 0; font-size:13px;">
+          <span id="sItem">AURA Fleur d'Or (100ml x1)</span>
+          <span id="sPrice">8 500 FCFA</span>
+        </div>
+        <div id="sDiscountRow" style="display:none; justify-content:space-between; font-size:13px; color:#065F46; font-weight:600;">
+          <span>Remise Lot</span>
+          <span id="sDiscount">-1 000 FCFA</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:13px;">
+          <span>Livraison</span>
+          <span id="sDeliv">1 500 FCFA</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:10px; padding-top:10px; border-top:1px solid #DFBDB5;">
+          <strong>TOTAL À PAYER</strong>
+          <span id="sTotal" class="total-price">10 000 FCFA</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn-whatsapp" onclick="submitOrder()">Commander via WhatsApp 💬</button>
+    </form>
+  </div>
+
+  <script>
+    const SELLER_WHATSAPP = "22890123456";
+    const TMONEY_NUM = "90 12 34 56";
+    const FLOOZ_NUM = "98 12 34 56";
+    const MIXX_NUM = "90 12 34 56";
+
+    const VARIANTS = {
+      'fleur-dor': { name: "AURA Fleur d'Or", desc: "Rose de Damas & Vanille Bourbon · Sillage féminin longue tenue.", img: "parfum.jpg" },
+      'nuit-orient': { name: "AURA Nuit d'Orient", desc: "Ambre Boisé, Fève Tonka & Oud Doux · Chaleureux et envoûtant.", img: "parfum_orient.jpg" },
+      'vanille-royale': { name: "AURA Vanille Royale", desc: "Vanille Dorée, Caramel Fondant & Fleurs Blanches · Gourmand irrésistible.", img: "parfum_vanille.jpg" }
+    };
+
+    const SIZES = {
+      '100ml': { price: 8500, oldPrice: 12000 },
+      '50ml': { price: 5500, oldPrice: 8000 }
+    };
+
+    let curVariant = 'fleur-dor';
+    let curSize = '100ml';
+    let curQty = 1;
+    let curDeliv = 'home';
+    let curPay = 'cod';
+
+    function setVariant(id) {
+      curVariant = id;
+      document.querySelectorAll('.variant-btn').forEach((b, i) => {
+        b.classList.toggle('active', ['fleur-dor', 'nuit-orient', 'vanille-royale'][i] === id);
+      });
+      document.getElementById('product-title').innerText = VARIANTS[id].name;
+      document.getElementById('product-desc').innerText = VARIANTS[id].desc;
+      document.getElementById('product-img').src = VARIANTS[id].img;
+      calc();
+    }
+
+    function setSize(sz) {
+      curSize = sz;
+      document.getElementById('btnSize100').classList.toggle('active', sz === '100ml');
+      document.getElementById('btnSize50').classList.toggle('active', sz === '50ml');
+      document.getElementById('price-display').innerText = SIZES[sz].price.toLocaleString('fr-FR') + ' FCFA';
+      document.getElementById('price-old').innerText = SIZES[sz].oldPrice.toLocaleString('fr-FR') + ' FCFA';
+      calc();
+    }
+
+    function setQty(q) {
+      curQty = q;
+      document.querySelectorAll('.qty-btn').forEach((b, i) => b.classList.toggle('active', i+1 === q));
+      calc();
+    }
+
+    function setDeliv(d) {
+      curDeliv = d;
+      document.getElementById('cardHome').classList.toggle('active', d === 'home');
+      document.getElementById('cardPickup').classList.toggle('active', d === 'pickup');
+      calc();
+    }
+
+    function setPay(p) {
+      curPay = p;
+      ['pCOD', 'pMixx', 'pTM', 'pFL'].forEach(id => document.getElementById(id).classList.remove('active'));
+      const box = document.getElementById('ussdBox');
+      if (p === 'cod') {
+        document.getElementById('pCOD').classList.add('active');
+        box.innerHTML = "💡 Vous réglez directement au coursier à la livraison à Lomé.";
+      } else if (p === 'mixx') {
+        document.getElementById('pMixx').classList.add('active');
+        box.innerHTML = "📱 Mixx by Yas : Envoyer au <strong>" + MIXX_NUM + "</strong> (AURA Parfums)";
+      } else if (p === 'tmoney') {
+        document.getElementById('pTM').classList.add('active');
+        box.innerHTML = "📱 TMoney Togocom vers <strong>" + TMONEY_NUM + "</strong><br><a href='tel:*145%23' class='ussd-btn'>Composer *145#</a>";
+      } else if (p === 'flooz') {
+        document.getElementById('pFL').classList.add('active');
+        box.innerHTML = "📱 Flooz Moov vers <strong>" + FLOOZ_NUM + "</strong><br><a href='tel:*155%23' class='ussd-btn'>Composer *155#</a>";
+      }
+    }
+
+    function calc() {
+      const uPrice = SIZES[curSize].price;
+      const baseSub = uPrice * curQty;
+      let discount = 0;
+      let freeDeliv = false;
+
+      if (curQty === 2) { discount = 1000; freeDeliv = true; }
+      else if (curQty >= 3) { discount = 2500; freeDeliv = true; }
+
+      const sub = baseSub - discount;
+      const fee = (curDeliv === 'pickup' || freeDeliv) ? 0 : 1500;
+      const total = sub + fee;
+
+      document.getElementById('sItem').innerText = VARIANTS[curVariant].name + ' (' + curSize + ' x' + curQty + ')';
+      document.getElementById('sPrice').innerText = baseSub.toLocaleString('fr-FR') + ' FCFA';
+      
+      const discRow = document.getElementById('sDiscountRow');
+      if (discount > 0) {
+        discRow.style.display = 'flex';
+        document.getElementById('sDiscount').innerText = '-' + discount.toLocaleString('fr-FR') + ' FCFA';
+      } else {
+        discRow.style.display = 'none';
+      }
+
+      const delivLabel = document.getElementById('delivFeeLabel');
+      delivLabel.innerText = freeDeliv ? '0 FCFA (Offerte !)' : '+1 500 FCFA';
+      document.getElementById('sDeliv').innerText = fee === 0 ? (freeDeliv ? 'OFFERTE (Pack)' : 'Gratuit') : fee.toLocaleString('fr-FR') + ' FCFA';
+      document.getElementById('sTotal').innerText = total.toLocaleString('fr-FR') + ' FCFA';
+    }
+
+    function submitOrder() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const errName = document.getElementById('errName');
+      const errPhone = document.getElementById('errPhone');
+
+      let valid = true;
+      if (name.length < 2) { errName.style.display = 'block'; valid = false; } else errName.style.display = 'none';
+      if (phone.replace(/\D/g, '').length < 8) { errPhone.style.display = 'block'; valid = false; } else errPhone.style.display = 'none';
+
+      if (!valid) {
+        document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      const quartier = document.getElementById('custQuartier').value;
+      const landmark = document.getElementById('custLandmark').value.trim();
+      const fullAddr = landmark ? quartier + ' (' + landmark + ')' : quartier;
+      const notes = document.getElementById('notes').value.trim();
+
+      const uPrice = SIZES[curSize].price;
+      const discount = curQty === 2 ? 1000 : curQty >= 3 ? 2500 : 0;
+      const freeDeliv = curQty >= 2;
+      const fee = (curDeliv === 'pickup' || freeDeliv) ? 0 : 1500;
+      const total = (uPrice * curQty - discount) + fee;
+
+      let msg = "🌸 *NOUVELLE COMMANDE LOMÉ*\\n\\n";
+      msg += "📦 *Parfum :* " + VARIANTS[curVariant].name + " (" + curSize + ") x" + curQty + "\\n";
+      if (discount > 0) msg += "🏷️ *Remise Pack :* -" + discount + " FCFA\\n";
+      if (curQty >= 3) msg += "🎁 *Cadeau :* Mini-spray de sac 10ml inclus\\n";
+      msg += "💵 *Sous-total :* " + (uPrice * curQty - discount).toLocaleString('fr-FR') + " FCFA\\n";
+      msg += "🚚 *Livraison :* " + (curDeliv === 'home' ? (freeDeliv ? 'À domicile (OFFERTE !)' : 'À domicile (1 500 FCFA)') : 'Retrait gratuit') + "\\n";
+      msg += "✨ *TOTAL :* " + total.toLocaleString('fr-FR') + " FCFA\\n\\n";
+      msg += "👤 *Client :* " + name + "\\n";
+      msg += "📞 *Téléphone :* +228 " + phone + "\\n";
+      msg += "📍 *Adresse :* " + fullAddr + "\\n";
+      msg += "💳 *Paiement :* " + curPay + "\\n";
+      if (notes) msg += "📝 *Note :* " + notes + "\\n";
+      msg += "\\nMerci de confirmer la commande !";
+
+      const cleanNum = SELLER_WHATSAPP.replace(/\D/g, '');
+      window.open("https://wa.me/" + cleanNum + "?text=" + encodeURIComponent(msg), '_blank');
+    }
+
+    calc();
+  </script>
+</body>
+</html>
